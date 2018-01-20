@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- 删除销售模块产品子菜单 -->
+    <delete model="ir.ui.menu" search="[('id', '=', ref('sale.menu_product_template_action'))]" />
+    <!-- 删除采购模块产品子菜单 -->
+    <delete model="ir.ui.menu" search="[('id', '=', ref('purchase.menu_procurement_partner_contact_form'))]" />
+
+    <!-- 产品变体表单 -->
+    <record id="product_custom_form_view" model="ir.ui.view">
+        <field name="name">product.custrom.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <!-- 隐藏可用于销售，可用于采购字段 -->
+            <div name="options" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </div>
+            <!-- 隐藏产品类型字段-->
+            <field name="type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <!-- 隐藏条码字段-->
+            <field name="barcode" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <!-- 增加图像页面 -->
+            <page name="notes" position="after">
+                <page string="图像" name="img">
+                     <field name="image" widget="image"/>
+                </page>
+            </page>
+            <!-- 增加拼音码
+                <field name="categ_id" position="after">
+                    <field name="code"/>
+                </field>
+            -->
+        </field>
+    </record>
+
+    <!--  销售订单表单 -->
+     <record id="view_order_form_custom" model="ir.ui.view">
+            <field name="name">sale.order.form.custom</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!-- 隐藏表单说明列-->
+                <xpath expr="//tree/field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!-- 产品列表不允许创建编辑产品-->
+                <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+     </record>
+    <!-- 采购订单表单-->
+    <record id="purchase_order_form_custom" model="ir.ui.view">
+            <field name="name">purchase.order.form.custom</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <!-- 隐藏说明列-->
+                <xpath expr="//tree/field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!-- 隐藏交货日期列-->
+                <xpath expr="//tree/field[@name='date_planned']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+    </record>
+
+
+</odoo>
