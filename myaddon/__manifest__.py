@@ -6,7 +6,7 @@
     'version': '1.0',
     'author': 'djn',
     'category': '',
-    'depends': ['product','sale','purchase'],
+    'depends': ['product','sale','purchase','stock'],
     'data': [
         'views/myaddon_views.xml'
     ],

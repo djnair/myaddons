@@ -4,6 +4,9 @@
     <delete model="ir.ui.menu" search="[('id', '=', ref('sale.menu_product_template_action'))]" />
     <!-- 删除采购模块产品子菜单 -->
     <delete model="ir.ui.menu" search="[('id', '=', ref('purchase.menu_procurement_partner_contact_form'))]" />
+    <!-- 删除库存模块产品子菜单-->
+    <delete model="ir.ui.menu" search="[('id', '=', ref('stock.menu_product_variant_config_stock'))]"/>
+
 
     <!-- 产品变体表单 -->
     <record id="product_custom_form_view" model="ir.ui.view">
